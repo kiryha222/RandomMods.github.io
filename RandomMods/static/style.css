@@ -1,0 +1,309 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #111;
+    color: #ddd;
+    background-image: radial-gradient(circle at 50% -20%, #251a3a 0%, #111 80%);
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #1a1a1a;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2c2c2c;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.site-name {
+    font-size: 26px;
+    font-weight: 600;
+    color: #c0a0ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* НОВЕ: КОНТЕЙНЕР ПОШУКУ ПО ЦЕНТРУ */
+.search-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    z-index: 1100;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    color: #c0a0ff;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.search-input {
+    width: 100% !important;
+    padding: 10px 15px 10px 45px !important;
+    margin: 0 !important;
+    border-radius: 25px !important;
+    background: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    color: white !important;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #c0a0ff !important;
+    box-shadow: 0 0 10px #c0a0ff55;
+}
+
+/* НОВЕ: РЕЗУЛЬТАТИ ПОШУКУ (ВИПАДАЙКА) */
+#search-results {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    background: #1c1c1c;
+    border-radius: 12px;
+    border: 1px solid #333;
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px solid #222;
+    transition: 0.2s;
+}
+
+.result-item:hover {
+    background: #251a3a;
+}
+
+.result-item img {
+    width: 50px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 12px;
+}
+
+.result-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.result-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.result-game {
+    font-size: 11px;
+    color: #c0a0ff;
+}
+
+/* NAV LINKS */
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #c0a0ff;
+}
+
+/* CONTENT */
+.content {
+    width: 95%;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+.section-title {
+    text-align: center;
+    color: #c0a0ff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* GAMES GRID */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.game-card {
+    background: #1c1c1c;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    text-align: center;
+    position: relative;
+    opacity: 0; 
+    transform: translateY(20px); 
+    animation: fadeInUp 0.8s forwards;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #c0a0ff;
+    box-shadow: 0 10px 25px rgba(192, 160, 255, 0.2);
+}
+
+.game-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.game-card:hover img {
+    transform: scale(1.05);
+}
+
+.game-name {
+    padding: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ddd;
+    transition: 0.3s;
+}
+
+/* КНОПКА SOURCE */
+.source-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(0,0,0,0.7);
+    color: #c0a0ff;
+    border: 1px solid #c0a0ff;
+    border-radius: 5px;
+    text-decoration: none;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.source-btn:hover {
+    background: #c0a0ff;
+    color: #111;
+}
+
+/* LOGIN & REGISTER BOX */
+.login-box {
+    width: 360px;
+    margin: 100px auto;
+    background: #1c1c1c;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #2c2c2c;
+    animation: fadeInUp 0.8s ease;
+}
+
+.login-box h2 {
+    color: #c0a0ff;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #2a2a2a;
+    color: #eee;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #c0a0ff;
+}
+
+button {
+    width: 100%;
+    background: #c0a0ff;
+    color: #111;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d4bcff;
+    transform: translateY(-2px);
+}
+
+/* ERROR & LINKS */
+h3 { text-align: center; color: #ff6b6b; margin-top: 50px; }
+.back-link { display: block; text-align: center; color: #c0a0ff; text-decoration: none; margin-top: 10px; }
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.alert-msg {
+    color: #ff6b6b;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: shake 0.4s ease;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { 
+    .games-grid { grid-template-columns: repeat(2, 1fr); }
+    .search-container { width: 200px; } /* Адаптація пошуку */
+}
+@media (max-width: 480px) { 
+    .games-grid { grid-template-columns: 1fr; }
+    .search-container { display: none; } /* Сховати пошук на дуже малих екранах */
+}
