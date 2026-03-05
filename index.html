@@ -11,17 +11,17 @@
         .navbar { background: #1a1a1a; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2c2c2c; position: sticky; top: 0; z-index: 1000; }
         .site-name { font-size: 26px; font-weight: 600; color: #c0a0ff; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
         .search-container { position: absolute; left: 50%; transform: translateX(-50%); width: 350px; }
-        .search-input { width: 100%; padding: 10px 15px; border-radius: 25px; background: #222; border: 1px solid #333; color: white; outline: none; transition: 0.3s; }
-        .content { width: 95%; max-width: 1400px; margin: 40px auto; }
-        .section-title { color: #c0a0ff; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 40px; }
+        .search-input { width: 100%; padding: 10px 15px; border-radius: 25px; background: #222; border: 1px solid #333; color: white; outline: none; }
+        .content { width: 95%; max-width: 1400px; margin: 40px auto; text-align: center; }
+        .section-title { color: #c0a0ff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .game-card { background: #1c1c1c; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5); text-align: center; position: relative; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; border: 1px solid transparent; transition: 0.3s; }
+        .game-card { background: #1c1c1c; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5); position: relative; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; border: 1px solid transparent; transition: 0.3s; cursor: pointer; }
         .game-card:hover { transform: translateY(-8px); border-color: #c0a0ff; }
         .game-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
         .game-name { padding: 15px; font-weight: 600; font-size: 18px; }
         .info-box { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20, 0, 40, 0.95); padding: 15px; font-size: 14px; opacity: 0; transform: translateY(100%); transition: 0.3s; pointer-events: none; }
         .game-card:hover .info-box { opacity: 1; transform: translateY(0); }
-        .return-btn { background: transparent; border: 1px solid #c0a0ff; color: #c0a0ff; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .return-btn { background: transparent; border: 1px solid #c0a0ff; color: #c0a0ff; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 20px; }
         .return-btn:hover { background: #c0a0ff; color: #111; }
         .page { display: none; }
         .page.active { display: block; }
@@ -33,7 +33,7 @@
     <div class="navbar">
         <div class="site-name" onclick="showPage('home')">RandomMods</div>
         <div class="search-container"><input type="text" class="search-input" placeholder="Пошук..."></div>
-        <div class="nav-links"><a onclick="showPage('home')" style="cursor:pointer">Головна</a></div>
+        <div class="nav-links"><a onclick="showPage('home')" style="cursor:pointer; color:#c0a0ff">Головна</a></div>
     </div>
 
     <div class="content">
@@ -45,40 +45,43 @@
         <div id="page-categories" class="page">
             <h2 class="section-title" id="cat-title"></h2>
             <div class="games-grid" id="categories-list"></div>
-            <div style="text-align:center;margin-top:40px;"><button class="return-btn" onclick="showPage('home')">Назад</button></div>
+            <button class="return-btn" onclick="showPage('home')">Назад до ігор</button>
         </div>
 
         <div id="page-mods" class="page">
             <h2 class="section-title" id="mod-title"></h2>
             <div class="games-grid" id="mods-list"></div>
-            <div style="text-align:center;margin-top:40px;"><button id="back-btn" class="return-btn">Назад</button></div>
+            <button id="back-to-cats" class="return-btn">Назад до категорій</button>
         </div>
     </div>
 
     <script>
-        // ДАНІ ПІД ТВОЮ СТРУКТУРУ GITHUB
         const DATA = {
-            base: "https://randommods.github.io/mods/Dota2/", // Переконайся, що назва репозиторію в посиланні правильна
-            games: { "Dota2": { img: "static/images/game1.jpg" } },
+            // Прямий шлях до твого репозиторію
+            root: "https://randommods.github.io/mods/Dota2/",
+            
             categories: {
                 "Dota2": {
-                    "categ1": { n: "Announcers", f: "Announcers", i: "Змінює голос коментатора." },
-                    "categ2": { n: "Emblems", f: "Emblems", i: "Унікальні емблеми." }
+                    "categ1": { n: "Announcers", folder: "Announcers", i: "Змінює голос коментатора." },
+                    "categ2": { n: "Emblems", folder: "Emblems", i: "Унікальні емблеми під героєм." },
+                    "categ3": { n: "Fog", folder: "Fog", i: "Змінює візуальні ефекти туману." }
                 }
             },
+            
             mods: {
                 "Dota2": {
-                    "categ1": [{ id: "mod1", n: "Sexy Woman", f: "pak01_dir.vpk" }, { id: "mod2", n: "Announcer 2", f: "pak09_dir.vpk" }],
-                    "categ2": [{ id: "mod3", n: "Emblem Green", f: "pak02_dir.vpk" }]
+                    "categ1": [{id:"mod1", n:"Sexy Woman Mega-Kill", f:"pak01_dir.vpk"}, {id:"mod2", n:"Announcer Pack 2", f:"pak09_dir.vpk"}],
+                    "categ2": [{id:"mod3", n:"Emblem Green", f:"pak02_dir.vpk"}, {id:"mod4", n:"Emblem Red", f:"pak03_dir.vpk"}],
+                    "categ3": [{id:"mod5", n:"Classic Blue Fog", f:"pak04_dir.vpk"}]
                 }
             }
         };
 
-        function showPage(p) { document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); }
+        function showPage(p) { document.querySelectorAll('.page').forEach(e=>e.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); }
 
         function renderHome() {
             const l = document.getElementById('games-list');
-            l.innerHTML = Object.keys(DATA.games).map(g => `<div class="game-card" onclick="renderCats('${g}')"><img src="${DATA.games[g].img}"><div class="game-name">${g}</div></div>`).join('');
+            l.innerHTML = `<div class="game-card" onclick="renderCats('Dota2')"><img src="static/images/game1.jpg"><div class="game-name">Dota 2</div></div>`;
         }
 
         function renderCats(g) {
@@ -97,12 +100,14 @@
             const l = document.getElementById('mods-list');
             const cat = DATA.categories[g][cid];
             document.getElementById('mod-title').innerText = cat.n;
-            document.getElementById('back-btn').onclick = () => renderCats(g);
+            document.getElementById('back-to-cats').onclick = () => renderCats(g);
+            
             l.innerHTML = DATA.mods[g][cid].map(m => {
-                const url = DATA.base + cat.f + "/" + m.f;
+                // ФОРМУЄМО ПОСИЛАННЯ: root + папка категорії + файл
+                const fileUrl = DATA.root + cat.folder + "/" + m.f;
                 return `
                 <div class="game-card">
-                    <a href="${url}" download="${m.f}" style="text-decoration:none; color:inherit;">
+                    <a href="${fileUrl}" download="${m.f}" style="text-decoration:none; color:inherit;">
                         <img src="static/ImagesDota2M/${m.id}.png">
                         <div class="game-name">${m.n}</div>
                         <div class="info-box">Натисніть, щоб скачати ${m.f}</div>
