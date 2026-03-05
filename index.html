@@ -7,131 +7,33 @@
     <link rel="icon" type="image/jpeg" href="static/SiteImage/SiteIm.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* БАЗОВІ СТИЛІ ТА ФОН */
-        body { 
-            margin: 0; font-family: 'Montserrat', sans-serif; background: #111; color: #ddd; 
-            background-image: radial-gradient(circle at 50% -20%, #251a3a 0%, #111 80%); 
-            min-height: 100vh; overflow-x: hidden; 
-        }
-        
-        /* НАВІГАЦІЯ */
-        .navbar { 
-            background: #1a1a1a; padding: 15px 40px; display: flex; justify-content: space-between; 
-            align-items: center; border-bottom: 2px solid #2c2c2c; position: sticky; top: 0; z-index: 1000; 
-        }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: #111; color: #ddd; background-image: radial-gradient(circle at 50% -20%, #251a3a 0%, #111 80%); min-height: 100vh; overflow-x: hidden; }
+        .navbar { background: #1a1a1a; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2c2c2c; position: sticky; top: 0; z-index: 1000; }
         .site-name { font-size: 26px; font-weight: 600; color: #c0a0ff; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
-        
-        /* ПОШУК ПО ЦЕНТРУ */
         .search-container { position: absolute; left: 50%; transform: translateX(-50%); width: 350px; }
-        .search-input { 
-            width: 100%; padding: 10px 15px; border-radius: 25px; background: #222; 
-            border: 1px solid #333; color: white; outline: none; transition: 0.3s;
-        }
-        .search-input:focus { border-color: #c0a0ff; box-shadow: 0 0 10px rgba(192, 160, 255, 0.3); }
-
-        #search-results { 
-            position: absolute; top: 50px; left: 0; right: 0; background: #1c1c1c; 
-            border-radius: 12px; border: 1px solid #444; display: none; max-height: 350px; 
-            overflow-y: auto; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        .result-item { display: flex; align-items: center; padding: 12px; text-decoration: none; color: white; border-bottom: 1px solid #222; cursor: pointer; }
-        .result-item:hover { background: #251a3a; }
-        .result-item img { width: 50px; height: 30px; object-fit: cover; margin-right: 12px; border-radius: 4px; }
-
-        .nav-links a { color: #aaa; text-decoration: none; margin-left: 20px; transition: 0.3s; cursor: pointer; font-weight: 600; }
-        .nav-links a:hover { color: #c0a0ff; }
-        
-        /* КОНТЕНТ */
+        .search-input { width: 100%; padding: 10px 15px; border-radius: 25px; background: #222; border: 1px solid #333; color: white; outline: none; transition: 0.3s; }
         .content { width: 95%; max-width: 1400px; margin: 40px auto; }
-        .section-header { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 40px; }
-        .section-title { color: #c0a0ff; text-transform: uppercase; letter-spacing: 2px; margin: 0; font-size: 24px; text-align: center; }
-        
-        .install-btn { 
-            background: #251a3a; border: 1px solid #c0a0ff; color: #c0a0ff; padding: 10px 20px; 
-            border-radius: 25px; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.3s; 
-        }
-        .install-btn:hover { background: #c0a0ff; color: #111; box-shadow: 0 0 15px rgba(192, 160, 255, 0.4); }
-
-        /* СІТКА КАРТОК */
+        .section-title { color: #c0a0ff; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 40px; }
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        
-        .game-card { 
-            background: #1c1c1c; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
-            text-align: center; position: relative; opacity: 0; transform: translateY(20px); 
-            animation: fadeInUp 0.8s forwards; border: 1px solid transparent; transition: all 0.3s ease; 
-        }
+        .game-card { background: #1c1c1c; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.5); text-align: center; position: relative; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; border: 1px solid transparent; transition: 0.3s; }
         .game-card:hover { transform: translateY(-8px); border-color: #c0a0ff; }
-        .game-card img { width: 100%; height: 180px; object-fit: cover; cursor: pointer; display: block; transition: 0.4s; }
-        .game-card:hover img { transform: scale(1.05); }
-        .game-name { padding: 15px; font-weight: 600; font-size: 18px; color: #ddd; }
-
-        .source-btn { 
-            position: absolute; top: 12px; left: 12px; z-index: 10;
-            padding: 5px 12px; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px);
-            border: 1px solid rgba(192, 160, 255, 0.5); color: #c0a0ff; border-radius: 8px;
-            font-size: 11px; text-transform: uppercase; font-weight: 600; text-decoration: none;
-        }
-
-        .info-box { 
-            position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20, 0, 40, 0.95); 
-            padding: 15px; font-size: 14px; opacity: 0; transform: translateY(100%); transition: 0.3s ease; pointer-events: none; 
-        }
+        .game-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .game-name { padding: 15px; font-weight: 600; font-size: 18px; }
+        .info-box { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(20, 0, 40, 0.95); padding: 15px; font-size: 14px; opacity: 0; transform: translateY(100%); transition: 0.3s; pointer-events: none; }
         .game-card:hover .info-box { opacity: 1; transform: translateY(0); }
-
-        /* МОДАЛЬНЕ ВІКНО */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(10px); }
-        .modal-content { background: #161618; padding: 40px; border-radius: 30px; border: 1px solid rgba(192, 160, 255, 0.3); max-width: 650px; width: 90%; max-height: 85vh; overflow-y: auto; position: relative; }
-        .modal-close { position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #777; }
-        .step-box { background: rgba(255,255,255,0.03); margin-bottom: 25px; padding: 25px; border-radius: 20px; border-left: 5px solid #c0a0ff; text-align: left;}
-        .step-title { font-weight: 600; color: #fff; font-size: 18px; display: block; margin-bottom: 10px;}
-        .step-gif { width: 100%; max-width: 500px; display: block; margin: 15px auto; border-radius: 12px; }
-        
-        .return-btn { background: transparent; border: 1px solid #c0a0ff; color: #c0a0ff; padding: 12px 30px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .return-btn { background: transparent; border: 1px solid #c0a0ff; color: #c0a0ff; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .return-btn:hover { background: #c0a0ff; color: #111; }
-
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        
         .page { display: none; }
         .page.active { display: block; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="navbar">
         <div class="site-name" onclick="showPage('home')">RandomMods</div>
-        <div class="search-container">
-            <input type="text" id="live-search" class="search-input" placeholder="Пошук модифікацій..." autocomplete="off">
-            <div id="search-results"></div>
-        </div>
-        <div class="nav-links">
-            <a onclick="showPage('home')">Головна</a>
-        </div>
-    </div>
-
-    <div id="installModal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="modal-close" onclick="toggleModal()">&times;</span>
-            <h2 style="color:#c0a0ff; text-align:center; margin-top:0;">ІНСТРУКЦІЯ ВСТАНОВЛЕННЯ</h2>
-            <div class="step-box">
-                <span class="step-title">1. Скачайте файл (.vpk)</span>
-                <img src="static/GifsDota2/Tut1.gif" class="step-gif" onerror="this.src='https://via.placeholder.com/500x200?text=GIF+Not+Found'">
-            </div>
-            <div class="step-box">
-                <span class="step-title">2. Створіть папку "addons"</span>
-                <p style="font-size:12px; color:#888;">Шлях: game/dota/addons</p>
-                <img src="static/GifsDota2/Tut2.gif" class="step-gif" onerror="this.src='https://via.placeholder.com/500x200?text=GIF+Not+Found'">
-            </div>
-            <div class="step-box">
-                <span class="step-title">3. Перекиньте мод у папку</span>
-                <img src="static/GifsDota2/Tut3.gif" class="step-gif" onerror="this.src='https://via.placeholder.com/500x200?text=GIF+Not+Found'">
-            </div>
-            <div class="step-box">
-                <span class="step-title">4. Параметри запуску Steam</span>
-                <code style="display:block; background:#000; color:#c0a0ff; padding:12px; border-radius:10px; text-align:center; margin-top:10px;">-language addons</code>
-                <img src="static/GifsDota2/Tut4.gif" class="step-gif" onerror="this.src='https://via.placeholder.com/500x200?text=GIF+Not+Found'">
-            </div>
-            <div style="text-align:center;"><button class="install-btn" onclick="toggleModal()">Зрозумів</button></div>
-        </div>
+        <div class="search-container"><input type="text" class="search-input" placeholder="Пошук..."></div>
+        <div class="nav-links"><a onclick="showPage('home')" style="cursor:pointer">Головна</a></div>
     </div>
 
     <div class="content">
@@ -141,172 +43,75 @@
         </div>
 
         <div id="page-categories" class="page">
-            <div class="section-header">
-                <h2 class="section-title" id="cat-game-title"></h2>
-                <button class="install-btn" onclick="toggleModal()">Як встановити?</button>
-            </div>
+            <h2 class="section-title" id="cat-title"></h2>
             <div class="games-grid" id="categories-list"></div>
             <div style="text-align:center;margin-top:40px;"><button class="return-btn" onclick="showPage('home')">Назад</button></div>
         </div>
 
         <div id="page-mods" class="page">
-            <div class="section-header">
-                <h2 class="section-title" id="mod-cat-title"></h2>
-                <button class="install-btn" onclick="toggleModal()">Як встановити?</button>
-            </div>
+            <h2 class="section-title" id="mod-title"></h2>
             <div class="games-grid" id="mods-list"></div>
-            <div style="text-align:center;margin-top:40px;"><button id="back-to-cats-btn" class="return-btn">Назад</button></div>
+            <div style="text-align:center;margin-top:40px;"><button id="back-btn" class="return-btn">Назад</button></div>
         </div>
     </div>
 
     <script>
-        // ДАНІ З ТВОГО MODS.PY
-        const CONFIG = {
-            baseModsUrl: "https://RandomMods.github.io/mods/Dota2/", // Твій шлях на GitHub
-            
-            games: {
-                "Dota2": { img: "static/images/game1.jpg", folderC: "static/ImagesDota2C", folderM: "static/ImagesDota2M" },
-                "Test": { img: "static/images/game2.jpg", folderC: "static/ImagesTestC", folderM: "static/ImagesTestM" }
-            },
-            
+        // ДАНІ ПІД ТВОЮ СТРУКТУРУ GITHUB
+        const DATA = {
+            base: "https://randommods.github.io/mods/Dota2/", // Переконайся, що назва репозиторію в посиланні правильна
+            games: { "Dota2": { img: "static/images/game1.jpg" } },
             categories: {
                 "Dota2": {
-                    "categ1": { name: "Announcers", folder: "Announcers", info: "Змінює голос коментатора на кастомний." },
-                    "categ2": { name: "Emblems", folder: "Emblems", info: "Унікальні візуальні емблеми під героєм." },
-                    "categ3": { name: "Fog", folder: "Fog", info: "Змінює візуальні ефекти туману війни." }
+                    "categ1": { n: "Announcers", f: "Announcers", i: "Змінює голос коментатора." },
+                    "categ2": { n: "Emblems", f: "Emblems", i: "Унікальні емблеми." }
                 }
             },
-            
             mods: {
                 "Dota2": {
-                    "categ1": [
-                        { id: "mod1", n: "Sexy Woman Mega-Kill", f: "pak01_dir.vpk", i: "Гаряча озвучка для серій вбивств.", src: "https://en.dota2changer.com/skins_dota_2_mods-sexy_woman_mega-kill/" },
-                        { id: "mod2", n: "Announcer Pack 2", f: "pak09_dir.vpk", i: "Другий пакет крутих коментарів." }
-                    ],
-                    "categ2": [
-                        { id: "mod3", n: "Emblem Green", f: "pak02_dir.vpk", i: "Зелене сяйво Diretide для справжніх олдів.", src: "https://h6rd.github.io/Dota2PornFxWeb/?category=emblems&mod=Emblem+of+the+Diretide+Green" },
-                        { id: "mod4", n: "Emblem Red", f: "pak03_dir.vpk", i: "Червоне сяйво Diretide, виглядає агресивно.", src: "https://h6rd.github.io/Dota2PornFxWeb/?category=emblems&mod=Emblem+of+the+Diretide+Red" }
-                    ],
-                    "categ3": [
-                        { id: "mod5", n: "Classic Blue Fog", f: "pak04_dir.vpk", i: "Повертає атмосферний синій туман." }
-                    ]
+                    "categ1": [{ id: "mod1", n: "Sexy Woman", f: "pak01_dir.vpk" }, { id: "mod2", n: "Announcer 2", f: "pak09_dir.vpk" }],
+                    "categ2": [{ id: "mod3", n: "Emblem Green", f: "pak02_dir.vpk" }]
                 }
             }
         };
 
-        // ЛОГІКА ПЕРЕКЛЮЧЕННЯ СТОРІНОК
-        function showPage(p) {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById('page-' + p).classList.add('active');
-            window.scrollTo(0, 0);
-        }
+        function showPage(p) { document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); }
 
-        function toggleModal() {
-            const m = document.getElementById('installModal');
-            m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        // РЕНДЕР ГОЛОВНОЇ
         function renderHome() {
-            const list = document.getElementById('games-list');
-            list.innerHTML = Object.entries(CONFIG.games).map(([name, data], i) => `
-                <div class="game-card" onclick="renderCats('${name}')" style="animation-delay:${i*0.1}s">
-                    <img src="${data.img}" onerror="this.src='https://via.placeholder.com/300x160?text=${name}'">
-                    <div class="game-name">${name}</div>
-                </div>`).join('');
+            const l = document.getElementById('games-list');
+            l.innerHTML = Object.keys(DATA.games).map(g => `<div class="game-card" onclick="renderCats('${g}')"><img src="${DATA.games[g].img}"><div class="game-name">${g}</div></div>`).join('');
         }
 
-        // РЕНДЕР КАТЕГОРІЙ
-        function renderCats(game) {
-            const list = document.getElementById('categories-list');
-            document.getElementById('cat-game-title').innerText = game;
-            const cats = CONFIG.categories[game];
-            
-            if (!cats) return;
-
-            list.innerHTML = Object.entries(cats).map(([id, data], i) => `
-                <div class="game-card" onclick="renderMods('${game}', '${id}')" style="animation-delay:${i*0.1}s">
-                    <img src="${CONFIG.games[game].folderC}/${id}.png" onerror="this.src='https://via.placeholder.com/300x160?text=${data.name}'">
-                    <div class="game-name">${data.name}</div>
-                    <div class="info-box">${data.info}</div>
+        function renderCats(g) {
+            const l = document.getElementById('categories-list');
+            document.getElementById('cat-title').innerText = g;
+            l.innerHTML = Object.entries(DATA.categories[g]).map(([id, c]) => `
+                <div class="game-card" onclick="renderMods('${g}','${id}')">
+                    <img src="static/ImagesDota2C/${id}.png">
+                    <div class="game-name">${c.n}</div>
+                    <div class="info-box">${c.i}</div>
                 </div>`).join('');
             showPage('categories');
         }
 
-        // РЕНДЕР МОДІВ ТА СКАЧУВАННЯ
-        function renderMods(game, catId) {
-            const list = document.getElementById('mods-list');
-            const category = CONFIG.categories[game][catId];
-            document.getElementById('mod-cat-title').innerText = category.name;
-            document.getElementById('back-to-cats-btn').onclick = () => renderCats(game);
-            
-            list.innerHTML = CONFIG.mods[game][catId].map((m, i) => {
-                // Пряме посилання на GitHub
-                const fileUrl = CONFIG.baseModsUrl + category.folder + "/" + m.f;
-                
+        function renderMods(g, cid) {
+            const l = document.getElementById('mods-list');
+            const cat = DATA.categories[g][cid];
+            document.getElementById('mod-title').innerText = cat.n;
+            document.getElementById('back-btn').onclick = () => renderCats(g);
+            l.innerHTML = DATA.mods[g][cid].map(m => {
+                const url = DATA.base + cat.f + "/" + m.f;
                 return `
-                <div id="card-${m.id}" class="game-card" style="animation-delay:${i*0.05}s">
-                    ${m.src ? `<a href="${m.src}" target="_blank" class="source-btn">Source</a>` : ''}
-                    <a href="${fileUrl}" download="${m.f}" style="text-decoration:none; color:inherit;">
-                        <img src="${CONFIG.games[game].folderM}/${m.id}.png" onerror="this.src='https://via.placeholder.com/300x160?text=${m.n}'">
+                <div class="game-card">
+                    <a href="${url}" download="${m.f}" style="text-decoration:none; color:inherit;">
+                        <img src="static/ImagesDota2M/${m.id}.png">
                         <div class="game-name">${m.n}</div>
-                        <div class="info-box">${m.i} <br><b style="color:#c0a0ff">Натисніть для скачування</b></div>
+                        <div class="info-box">Натисніть, щоб скачати ${m.f}</div>
                     </a>
                 </div>`;
             }).join('');
             showPage('mods');
         }
 
-        // ПОШУК
-        const searchInput = document.getElementById('live-search');
-        const resultsBox = document.getElementById('search-results');
-
-        searchInput.oninput = (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            if (!query) { resultsBox.style.display = 'none'; return; }
-
-            let results = [];
-            Object.entries(CONFIG.mods).forEach(([game, categories]) => {
-                Object.entries(categories).forEach(([catId, mods]) => {
-                    mods.forEach(m => {
-                        if (m.n.toLowerCase().includes(query)) {
-                            results.push({ game, catId, m });
-                        }
-                    });
-                });
-            });
-
-            if (results.length > 0) {
-                resultsBox.innerHTML = results.slice(0, 8).map(r => `
-                    <div class="result-item" onclick="goToMod('${r.game}', '${r.catId}', '${r.m.id}')">
-                        <img src="${CONFIG.games[r.game].folderM}/${r.m.id}.png" onerror="this.src='https://via.placeholder.com/50x30?text=IMG'">
-                        <div>
-                            <div style="font-weight:600; font-size:14px;">${r.m.n}</div>
-                            <div style="font-size:11px; color:#c0a0ff;">${r.game} • ${CONFIG.categories[r.game][r.catId].name}</div>
-                        </div>
-                    </div>`).join('');
-                resultsBox.style.display = 'block';
-            } else {
-                resultsBox.style.display = 'none';
-            }
-        };
-
-        function goToMod(game, catId, modId) {
-            resultsBox.style.display = 'none';
-            searchInput.value = '';
-            renderMods(game, catId);
-            setTimeout(() => {
-                const el = document.getElementById('card-' + modId);
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
-        }
-
-        // Закриття пошуку при кліку поза ним
-        window.onclick = (e) => {
-            if (!e.target.closest('.search-container')) resultsBox.style.display = 'none';
-        }
-
-        // Запуск
         renderHome();
     </script>
 </body>
